@@ -18,8 +18,8 @@ class FlareHeader extends StatelessWidget {
               : "packages/awesome_dialog/assets/flare/loading.flr",
           alignment: Alignment.center,
           fit: BoxFit.cover,
-          animation: 'Untitled',
-          color: Colors.grey,
+          animation: 'Idle',
+          color: Colors.brown,
           callback: (call) {},
         );
         break;
