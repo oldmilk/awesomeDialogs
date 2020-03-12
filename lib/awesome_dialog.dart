@@ -6,7 +6,7 @@ import 'package:awesome_dialog/anims/flare_header.dart';
 import 'package:awesome_dialog/vertical_stack_header_dialog.dart';
 import 'package:flutter/material.dart';
 
-enum DialogType { INFO, WARNING, ERROR, SUCCES }
+enum DialogType { LOADING, INFO, WARNING, ERROR, SUCCES }
 enum AnimType { SCALE, LEFTSLIDE, RIGHSLIDE, BOTTOMSLIDE, TOPSLIDE }
 
 class AwesomeDialog {
@@ -34,32 +34,34 @@ class AwesomeDialog {
   final bool isDense;
   final bool headerAnimationLoop;
   final bool useRootNavigator;
-  AwesomeDialog(
-      {@required this.context,
-      this.dialogType,
-      this.customHeader,
-      this.tittle,
-      this.desc,
-      this.body,
-      this.btnOk,
-      this.btnCancel,
-      this.btnOkText,
-      this.btnOkIcon,
-      this.btnOkOnPress,
-      this.btnOkColor,
-      this.btnCancelText,
-      this.btnCancelIcon,
-      this.btnCancelOnPress,
-      this.btnCancelColor,
-      this.onDissmissCallback,
-      this.isDense = false,
-      this.dismissOnTouchOutside = true,
-      this.headerAnimationLoop = true,
-      this.aligment = Alignment.center,
-      this.animType = AnimType.SCALE,
-      this.padding,
-      this.useRootNavigator = false})
-      : assert(
+  final Future<bool> onWillPop;
+  AwesomeDialog({
+    @required this.context,
+    this.dialogType,
+    this.customHeader,
+    this.tittle,
+    this.desc,
+    this.body,
+    this.btnOk,
+    this.btnCancel,
+    this.btnOkText,
+    this.btnOkIcon,
+    this.btnOkOnPress,
+    this.btnOkColor,
+    this.btnCancelText,
+    this.btnCancelIcon,
+    this.btnCancelOnPress,
+    this.btnCancelColor,
+    this.onDissmissCallback,
+    this.isDense = false,
+    this.dismissOnTouchOutside = true,
+    this.headerAnimationLoop = true,
+    this.aligment = Alignment.center,
+    this.animType = AnimType.SCALE,
+    this.padding,
+    this.useRootNavigator = false,
+    this.onWillPop,
+  }) : assert(
           (dialogType != null || customHeader != null),
           context != null,
         );
@@ -89,7 +91,10 @@ class AwesomeDialog {
               return Slide(from: SlideFrom.TOP, child: _buildDialog());
               break;
             default:
-              return _buildDialog();
+              return WillPopScope(
+                onWillPop: onWillPop ?? Navigator.of(context).pop(),
+                child: _buildDialog(),
+              );
           }
         }).then((_) {
       if (onDissmissCallback != null) onDissmissCallback();
