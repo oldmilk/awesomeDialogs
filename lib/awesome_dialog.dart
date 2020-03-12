@@ -91,10 +91,7 @@ class AwesomeDialog {
               return Slide(from: SlideFrom.TOP, child: _buildDialog());
               break;
             default:
-              return WillPopScope(
-                onWillPop: onWillPop, // ?? Navigator.of(context).pop(),
-                child: _buildDialog(),
-              );
+              return _buildDialog();
           }
         }).then((_) {
       if (onDissmissCallback != null) onDissmissCallback();
@@ -102,21 +99,24 @@ class AwesomeDialog {
   }
 
   _buildDialog() {
-    return VerticalStackDialog(
-      header: customHeader ??
-          FlareHeader(
-            loop: headerAnimationLoop,
-            dialogType: this.dialogType,
-          ),
-      title: this.tittle,
-      desc: this.desc,
-      body: this.body,
-      isDense: isDense,
-      aligment: aligment,
-      padding: padding ?? EdgeInsets.only(left: 5, right: 5),
-      btnOk: btnOk ?? (btnOkOnPress != null ? _buildFancyButtonOk() : null),
-      btnCancel: btnCancel ??
-          (btnCancelOnPress != null ? _buildFancyButtonCancel() : null),
+    return WillPopScope(
+      onWillPop: onWillPop,
+      child: VerticalStackDialog(
+        header: customHeader ??
+            FlareHeader(
+              loop: headerAnimationLoop,
+              dialogType: this.dialogType,
+            ),
+        title: this.tittle,
+        desc: this.desc,
+        body: this.body,
+        isDense: isDense,
+        aligment: aligment,
+        padding: padding ?? EdgeInsets.only(left: 5, right: 5),
+        btnOk: btnOk ?? (btnOkOnPress != null ? _buildFancyButtonOk() : null),
+        btnCancel: btnCancel ??
+            (btnCancelOnPress != null ? _buildFancyButtonCancel() : null),
+      ),
     );
   }
 
