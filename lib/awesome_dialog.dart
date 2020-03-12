@@ -34,7 +34,7 @@ class AwesomeDialog {
   final bool isDense;
   final bool headerAnimationLoop;
   final bool useRootNavigator;
-  final Future<bool> onWillPop;
+  final WillPopCallback onWillPop;
   AwesomeDialog({
     @required this.context,
     this.dialogType,
@@ -92,7 +92,7 @@ class AwesomeDialog {
               break;
             default:
               return WillPopScope(
-                onWillPop: onWillPop ?? Navigator.of(context).pop(),
+                onWillPop: onWillPop, // ?? Navigator.of(context).pop(),
                 child: _buildDialog(),
               );
           }
