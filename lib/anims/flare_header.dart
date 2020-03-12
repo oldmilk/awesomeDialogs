@@ -11,6 +11,18 @@ class FlareHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (dialogType) {
+      case DialogType.LOADING:
+        return FlareActor(
+          loop
+              ? "packages/awesome_dialog/assets/flare/loading.flr"
+              : "packages/awesome_dialog/assets/flare/loading.flr",
+          alignment: Alignment.center,
+          fit: BoxFit.cover,
+          animation: 'Untitled',
+          color: Colors.grey,
+          callback: (call) {},
+        );
+        break;
       case DialogType.INFO:
         return FlareActor(
           loop

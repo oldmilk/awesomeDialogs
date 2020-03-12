@@ -61,6 +61,20 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: <Widget>[
               AnimatedButton(
+                text: 'Loading Dialog',
+                pressEvent: () {
+                  showAlertDialogOnOkCallback(
+                      'In Progress',
+                      'Loading',
+                      DialogType.LOADING,
+                      context,
+                      () => _slideMainPage(context));
+                },
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              AnimatedButton(
                 text: 'Issue Dialog',
                 pressEvent: () {
                   showAlertDialogOnOkCallback(
